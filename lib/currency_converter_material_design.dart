@@ -1,26 +1,37 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class CurrencyConverterMaterialDesignPage extends StatefulWidget
-{
-  State createState() => _CurrencyConverterMaterialDesignPageState();
-}
-
-class _CurrencyConverterMaterialDesignPageState extends State{
-  @override
-  Widget build(BuildContext context)
+class CurrencyConverterMaterialDesignPage extends StatefulWidget {
+  CurrencyConverterMaterialDesignPage({super.key})
   {
-    return const Scaffold();
+    print('Constructor created');
+  }
+
+  @override
+  State<CurrencyConverterMaterialDesignPage> createState() {
+    print("It is material state");
+    return _CurrencyConverterMaterialState();
   }
 }
 
-class CurrencyConverterMaterialDesign extends StatelessWidget {
-  const CurrencyConverterMaterialDesign({super.key});
+class _CurrencyConverterMaterialState
+    extends State<CurrencyConverterMaterialDesignPage> {
+  late double res;
+
+  @override
+  void initState()
+  {
+    super.initState();
+    res=0;
+    print('rebuilt');
+  }
+
+  final TextEditingController textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    double res =  0;
-    final TextEditingController textEditingController = TextEditingController();
+
+
 
     final border = OutlineInputBorder(
       borderSide: const BorderSide(
@@ -48,7 +59,7 @@ class CurrencyConverterMaterialDesign extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-                Text(
+              Text(
                 res.toString(),
                 style: TextStyle(
                   fontSize: 30,
@@ -63,7 +74,8 @@ class CurrencyConverterMaterialDesign extends StatelessWidget {
                 decoration: InputDecoration(
                   hintText: 'Enter amount in USD',
                   hintStyle: const TextStyle(color: Colors.black),
-                  prefixIcon: const Icon(Icons.attach_money, color: Colors.black),
+                  prefixIcon:
+                      const Icon(Icons.attach_money, color: Colors.black),
                   filled: true,
                   fillColor: Colors.white,
                   focusedBorder: border,
@@ -78,10 +90,12 @@ class CurrencyConverterMaterialDesign extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   final inputAmount = double.parse(textEditingController.text);
-                  res = inputAmount*100;
+                  setState(() {
+                    res = inputAmount * 100;
+                  });
                   if (kDebugMode) {
                     print("Convert button pressed");
-                    print("Entered amount: ${inputAmount*100}");
+                    print("Entered amount: ${inputAmount * 100}");
                   }
                   // You can add conversion logic here
                 },
@@ -100,6 +114,9 @@ class CurrencyConverterMaterialDesign extends StatelessWidget {
               TextButton(
                 onPressed: () {
                   textEditingController.clear();
+                  setState(() {
+                    res = 0;
+                  });
                   if (kDebugMode) {
                     print("Reset button clicked");
                     print("Input cleared");
