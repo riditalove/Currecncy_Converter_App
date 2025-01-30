@@ -1,4 +1,4 @@
-# opo
+# A simple currency converter app
 
 A new Flutter project.
 
